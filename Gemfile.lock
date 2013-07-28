@@ -1,0 +1,75 @@
+GIT
+  remote: git@github.com:hybridgroup/artoo-ardrone.git
+  revision: dd40a080b64efd9834d26fdcbd5459f8c5c16e2f
+  specs:
+    artoo-ardrone (1.0.0)
+      artoo (~> 1.0.0.rc1)
+      hybridgroup-argus (~> 0.3.0)
+
+GIT
+  remote: git@github.com:hybridgroup/artoo.git
+  revision: eda893fbf9f1f4ed945ac130636f8053669a9f27
+  specs:
+    artoo (1.0.0.rc2)
+      celluloid (~> 0.14.1)
+      celluloid-io (~> 0.14.1)
+      multi_json (~> 1.6)
+      pry (~> 0.9)
+      rake (~> 10.0)
+      reel (~> 0.4.0.pre)
+      thor (~> 0.18.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    celluloid (0.14.1)
+      timers (>= 1.0.0)
+    celluloid-io (0.14.1)
+      celluloid (>= 0.14.1)
+      nio4r (>= 0.4.5)
+    certified (0.1.1)
+    coderay (1.0.9)
+    ffi (1.9.0-java)
+    http (0.4.0)
+      certified
+      http_parser.rb
+    http_parser.rb (0.5.3)
+    http_parser.rb (0.5.3-java)
+    hybridgroup-argus (0.3.0)
+    method_source (0.8.1)
+    multi_json (1.7.7)
+    nio4r (0.4.6)
+    nio4r (0.4.6-java)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry (0.9.12.2-java)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+      spoon (~> 0.0)
+    rack (1.5.2)
+    rake (10.1.0)
+    reel (0.4.0.pre)
+      celluloid-io (>= 0.8.0)
+      http (>= 0.2.0)
+      http_parser.rb (>= 0.5.3)
+      rack (>= 1.4.0)
+      websocket_parser (>= 0.1.2)
+    slop (3.4.6)
+    spoon (0.0.4)
+      ffi
+    thor (0.18.1)
+    timers (1.1.0)
+    websocket_parser (0.1.4)
+      http
+
+PLATFORMS
+  java
+  ruby
+
+DEPENDENCIES
+  artoo!
+  artoo-ardrone!
+  hybridgroup-argus
