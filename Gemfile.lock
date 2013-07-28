@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:hybridgroup/artoo-ardrone.git
+  remote: https://github.com/hybridgroup/artoo-ardrone.git
   revision: dd40a080b64efd9834d26fdcbd5459f8c5c16e2f
   specs:
     artoo-ardrone (1.0.0)
@@ -7,10 +7,10 @@ GIT
       hybridgroup-argus (~> 0.3.0)
 
 GIT
-  remote: git@github.com:hybridgroup/artoo.git
-  revision: eda893fbf9f1f4ed945ac130636f8053669a9f27
+  remote: https://github.com/hybridgroup/artoo.git
+  revision: 3cfa27123ca83a02ee72509b84a7caab7edcf50c
   specs:
-    artoo (1.0.0.rc2)
+    artoo (1.0.0.rc3)
       celluloid (~> 0.14.1)
       celluloid-io (~> 0.14.1)
       multi_json (~> 1.6)
@@ -36,7 +36,7 @@ GEM
     http_parser.rb (0.5.3)
     http_parser.rb (0.5.3-java)
     hybridgroup-argus (0.3.0)
-    method_source (0.8.1)
+    method_source (0.8.2)
     multi_json (1.7.7)
     nio4r (0.4.6)
     nio4r (0.4.6-java)

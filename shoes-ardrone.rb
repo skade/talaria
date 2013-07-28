@@ -26,18 +26,32 @@ Shoes.app do
     #end
 
   keypress do |k|
-    drone.take_off if k == :up
-    drone.land if k == :down
-    drone.turn_left 0.1 if k == :left
-    drone.turn_right 0.1 if k == :right
+    drone.take_off if k == 't'
+    drone.land if k == 'g'
 
+    drone.up 0.3 if k == :up
+    drone.down 0.3 if k == :down
+    drone.turn_left 0.3 if k == :left
+    drone.turn_right 0.3 if k == :right
+    drone.forward 0.3 if k == 'w'
+    drone.backward 0.3 if k == 's'
+    drone.left 0.3 if k == 'a'
+    drone.right 0.3 if k == 'd'
+
+    drone.emergency if k == " "
     @pressed_keys << k
     update_info
   end
 
   keyrelease do |k|
+    drone.up 0 if k == :up
+    drone.down 0 if k == :down
     drone.turn_left 0 if k == :left
     drone.turn_right 0 if k == :right
+    drone.forward 0 if k == 'w'
+    drone.backward 0 if k == 's'
+    drone.left 0 if k == 'a'
+    drone.right 0 if k == 'd'
 
     @pressed_keys.delete k
     update_info
