@@ -48,6 +48,8 @@ Shoes.app do
                        "image2pipe",
                        "-vcodec",
                        "png",
+                       "-r",
+                       "8",
                        "-"],
                        :external_encoding => "binary")
 
