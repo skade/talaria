@@ -27,6 +27,8 @@ module VideoStream
     @current_image = @connecting
     @partial_image = ""
 
+    @image = image @current_image
+
     Thread.new do
       loop do
         begin
@@ -54,14 +56,15 @@ module VideoStream
 
             @partial_image = upcoming_image_fragment
           end
-          File.open("debug.png", "wb") do |f|
-            f.write @current_image
-          end
         rescue Exception => e
           puts e.message
           puts e.backtrace.inspect
         end
       end
+    end
+
+    animate(8) do
+      @image.path = @current_image
     end
   end
 end

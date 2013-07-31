@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:skade/javahidapi.git
-  revision: 3f38fcbe8cc3a49c45d75fb2a99737299ecfccac
+  revision: bf22c7aa6a63b3e1c0d44f8a4c3e4c25cd9bf3e8
   specs:
     javahidapi (1.1.0)
 
@@ -35,7 +35,6 @@ GEM
       nio4r (>= 0.4.5)
     certified (0.1.1)
     coderay (1.0.9)
-    ffi (1.9.0)
     ffi (1.9.0-java)
     http (0.4.0)
       certified

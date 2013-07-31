@@ -28,10 +28,4 @@ Shoes.app :width => 1024, :height => 700 do
   setup_keyboard_control!
   setup_indoor_control!
   start_game_controller!
-
-  @image = image @current_image
-
-  animate(8) do
-    @image.path = @current_image
-  end
 end
