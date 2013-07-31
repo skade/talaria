@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/hybridgroup/artoo.git
-  revision: 3cfa27123ca83a02ee72509b84a7caab7edcf50c
+  revision: e6b232c14d7cca7ce30faa2775168fbe72b211e6
   specs:
     artoo (1.0.0.rc3)
       celluloid (~> 0.14.1)

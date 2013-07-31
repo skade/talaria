@@ -15,30 +15,17 @@ class ArDrone < Artoo::Robot
 end
 
 Shoes.app do
-  @current_image = nil
-  @upcoming_image = ""
+  @current_image = File.read("#{File.dirname(__FILE__)}/Connecting.png", mode: "rb")
+  @partial_image = ""
+  @image = image @current_image
 
   @text = "NO KEY is PRESSED."
-
-  def current_image_as_image_data
-    return @current_image if @current_image.nil?
-    input = @current_image
-    stream = java.io.ByteArrayInputStream.new(input.to_java_bytes)
-    begin
-      org.eclipse.swt.graphics.ImageLoader.new().load(stream).first
-    rescue org.eclipse.swt.SWTException
-      nil
-    end
-  end
-
-  def current_image
-    Dir["#{File.dirname(__FILE__)}/images/*.png"].sort_by { |f| File.mtime f }.last
-  end
 
   @ardrone = ArDrone.new()
 
   @pressed_keys = Set.new
 
+  Thread.abort_on_exception = true
   Thread.new { Artoo::Robot.work!([@ardrone]) }
   Thread.new do
     stream = IO.popen(["ffmpeg",
@@ -54,25 +41,37 @@ Shoes.app do
                        :external_encoding => "binary")
 
     loop do
-      input = stream.read(100000)
-      puts "read #{input.length}"
-      images = input.split(/(?=\x89PNG)/n)
+      begin
+        input = stream.read(100000)
+        images = input.split(/(?=\x89PNG)/n)
 
-      if images.length == 1
-        puts "found fragment"
-        upcoming_image_fragment = images.first
-        @upcoming_image << upcoming_image_fragment
-      else
-        puts "found new image"
+        if images.length == 1
+          puts "found fragment"
+          upcoming_image_fragment = images.first
+          @partial_image << upcoming_image_fragment
+        elsif images.length == 2
+          puts "completed image"
 
-        end_of_upcoming_image, upcoming_image_fragment = images[-2..-1]
-        @upcoming_image << end_of_upcoming_image
+          end_of_upcoming_image, upcoming_image_fragment = images
+          @partial_image << end_of_upcoming_image
 
-        @current_image = @upcoming_image
+          @current_image = @partial_image
+
+          @partial_image = upcoming_image_fragment
+        elsif images.length > 2
+          puts "found full image"
+
+          full_image, upcoming_image_fragment = images[-2..-1]
+          @current_image = full_image
+
+          @partial_image = upcoming_image_fragment
+        end
         File.open("debug.png", "wb") do |f|
           f.write @current_image
         end
-        @upcoming_image = upcoming_image_fragment
+      rescue Exception => e
+        puts e.message
+        puts e.backtrace.inspect
       end
     end
   end
@@ -121,16 +120,7 @@ Shoes.app do
     @ardrone.drone
   end
 
-  flow do
-    @para = para @text
-    animate(8) do
-      #puts "replacing image with #{image}"
-      #@para = para @text unless @para
-      @para.replace @text
-      if current_image_data = current_image_as_image_data
-        puts "displaying image #{current_image_data.inspect}"
-        @image = image current_image_as_image_data
-      end
-    end
+  animate(8) do
+    @image.path = @current_image
   end
 end
