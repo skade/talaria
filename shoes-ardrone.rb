@@ -15,9 +15,12 @@ class ArDrone < Artoo::Robot
 end
 
 Shoes.app do
-  @current_image = File.read("#{File.dirname(__FILE__)}/Connecting.png", mode: "rb")
+  @connecting = File.read("#{File.dirname(__FILE__)}/Connecting.png", mode: "rb")
+  @current_image = @connecting
   @partial_image = ""
   @image = image @current_image
+  @key_bindings = {}
+  @key_states = {}
 
   @text = "NO KEY is PRESSED."
 
@@ -25,10 +28,14 @@ Shoes.app do
 
   @pressed_keys = Set.new
 
-  Thread.abort_on_exception = true
-  Thread.new { Artoo::Robot.work!([@ardrone]) }
-  Thread.new do
-    stream = IO.popen(["ffmpeg",
+  def stream
+    unless @pid && Process.waitpid(@pid, Process::WNOHANG)
+      @ffmpeg = nil
+      @pid = nil
+      @current_image = @connecting
+    end
+
+    @ffmpeg ||= IO.popen(["ffmpeg",
                        "-i",
                        "tcp://192.168.1.1:5555",
                        "-f",
@@ -39,18 +46,24 @@ Shoes.app do
                        "8",
                        "-"],
                        :external_encoding => "binary")
+    @pid = @ffmpeg.pid
+    @ffmpeg
+  end
 
+  Thread.abort_on_exception = true
+  Thread.new { Artoo::Robot.work!([@ardrone]) }
+  Thread.new do
     loop do
       begin
         input = stream.read(100000)
         images = input.split(/(?=\x89PNG)/n)
 
         if images.length == 1
-          puts "found fragment"
+          #puts "found fragment"
           upcoming_image_fragment = images.first
           @partial_image << upcoming_image_fragment
         elsif images.length == 2
-          puts "completed image"
+          #puts "completed image"
 
           end_of_upcoming_image, upcoming_image_fragment = images
           @partial_image << end_of_upcoming_image
@@ -59,7 +72,7 @@ Shoes.app do
 
           @partial_image = upcoming_image_fragment
         elsif images.length > 2
-          puts "found full image"
+          #puts "found full image"
 
           full_image, upcoming_image_fragment = images[-2..-1]
           @current_image = full_image
@@ -76,37 +89,72 @@ Shoes.app do
     end
   end
 
+  def toggle(key, *options)
+    @key_states[key] = options.first
+    number_of_options = options.length
+    @key_bindings[key] = {
+      press: -> {
+        current_state = @key_states[key]
+        next_index = (options.index(current_state) + 1) % number_of_options
+        option = @key_states[key] = options[next_index]
+        drone.send(option)
+      }
+    }
+  end
+
+  def command(key, command)
+    @key_bindings[key] = {
+      press: -> {
+        drone.send(command)
+      }
+    }
+  end
+
+  def movement(key, command, speed)
+    @key_bindings[key] = {
+      press: -> {
+        drone.send(command, speed)
+      },
+      up: -> {
+        drone.send(command, 0)
+      }
+    }
+  end
+
+  def handle_keypress(key)
+    if @key_bindings[key] && (command = @key_bindings[key][:press])
+      command.call
+    end
+  end
+
+  def handle_keyup(key)
+    if @key_bindings[key] && (command = @key_bindings[key][:up])
+      command.call
+    end
+  end
+
+  toggle 'c', :front_camera, :bottom_camera
+  command 't', :take_off
+  command 'g', :land
+  command ' ', :emergency
+  movement :up, :up, 0.3
+  movement :down, :down, 0.3
+  movement :left, :turn_left, 0.6
+  movement :right, :turn_right, 0.6
+  movement 'w', :forward, 0.3
+  movement 's', :backward, 0.3
+  movement 'a', :left, 0.3
+  movement 'd', :right, 0.3
+
   keypress do |k|
-    puts "pressed #{k}"
+    handle_keypress k
 
-    drone.take_off if k == 't'
-    drone.land if k == 'g'
-
-    drone.up 0.3 if k == :up
-    drone.down 0.3 if k == :down
-    drone.turn_left 0.6 if k == :left
-    drone.turn_right 0.6 if k == :right
-    drone.forward 0.3 if k == 'w'
-    drone.backward 0.3 if k == 's'
-    drone.left 0.3 if k == 'a'
-    drone.right 0.3 if k == 'd'
-
-    drone.emergency if k == " "
     @pressed_keys << k
     update_info
   end
 
   keyrelease do |k|
-    puts "released #{k}"
-
-    drone.up 0 if k == :up
-    drone.down 0 if k == :down
-    drone.turn_left 0 if k == :left
-    drone.turn_right 0 if k == :right
-    drone.forward 0 if k == 'w'
-    drone.backward 0 if k == 's'
-    drone.left 0 if k == 'a'
-    drone.right 0 if k == 'd'
+    handle_keyup k
 
     @pressed_keys.delete k
     update_info
