@@ -62,7 +62,7 @@ The key configuration is built for indoor control and immediately stops the dron
 
 ## Controller Support
 
-Tialara has support for PS3 controllers throigh `javahidapi`. To connect a controller to OS X, see [this gist](https://gist.github.com/statico/3172711). Linux should behave similar. The controller will be automatically detected if present.
+Tialara has support for PS3 controllers through `javahidapi`. To connect a controller to OS X, see [this gist](https://gist.github.com/statico/3172711). Linux should behave similar. The controller will be automatically detected if present.
 
 Configuration:
 
