@@ -7,7 +7,7 @@ The flying shoes of Hermes. A shoes4 application to control AR.Drones.
 ## Usage
 
 * Acquire an AR.Drone
-* Make sure you have jruby-1.7.4 installed and used
+* Make sure you have jruby-1.7.4 installed and activated in your shell
 * Clone the current shoes4 development branch and talaria:
 
 ```
@@ -27,6 +27,13 @@ bundle install
 
 * Make sure `ffmpeg` is in your `$PATH`. Mac users can use the binary found [here](http://ffmpegmac.net/).
 * Join your drones wifi network.
+* Run
+
+```
+cd shoes4
+bin/shoes ../talaria/talaria.rb
+```
+
 * Fly and enjoy the view!
 
 ## Key configuration
