@@ -57,6 +57,8 @@ The key configuration is built for indoor control and immediately stops the dron
 
 When playing around, lower the speed settings. If your app crashes, the drone remembers the last settings and will be flying in the last direction without control.
 
+Also, try the emergency toggle right after first take off to get a feel for it.
+
 ## Pull requests
 
 As long as Travis does not support drones and external controllers, I accept pull requests in good faith for just about anything.
