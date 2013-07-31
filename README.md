@@ -36,15 +36,18 @@ The key configuration is built for indoor control and immediately stops the dron
 * `t`: take off
 * `g`: land
 * `<SPACE>`: emergency toggle (immediately switches of the drone!)
+* `c`: switch camera signal between front and bottom camera
+
 * `<UP>`: fly upwards
 * `<DOWN>`: fly downwards
 * `<LEFT>`: turn left
 * `<RIGHT>`: turn right
+
 * `w`: forward
 * `s`: backward
 * `a`: bank left
 * `d`: bank right
-* `c`: switch camera signal between front and bottom camera
+
 * `h`: flip left (not implemented)
 * `j`: flip backward (not implemented)
 * `k`: flip forward (not implemented)
