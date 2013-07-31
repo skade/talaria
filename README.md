@@ -60,6 +60,23 @@ The key configuration is built for indoor control and immediately stops the dron
 * `k`: flip forward (not implemented)
 * `l`: flip right (not implemented)
 
+## Controller Support
+
+Tialara has support for PS3 controllers throigh `javahidapi`. To connect a controller to OS X, see [this gist](https://gist.github.com/statico/3172711). Linux should behave similar. The controller will be automatically detected if present.
+
+Configuration:
+
+* L2: take off
+* R2: land
+* X: emergency togle
+* L1: front camera
+* R1: bottom camera
+
+* left analog stick: forward/backward, bank left/right
+* right analog stick: up/down, turn left/right
+
+* d-pad: flips (not implemented)
+
 ## Warning
 
 When playing around, lower the speed settings. If your app crashes, the drone remembers the last settings and will be flying in the last direction without control.

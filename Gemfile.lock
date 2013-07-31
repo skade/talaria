@@ -1,4 +1,10 @@
 GIT
+  remote: git@github.com:skade/javahidapi.git
+  revision: 3f38fcbe8cc3a49c45d75fb2a99737299ecfccac
+  specs:
+    javahidapi (1.1.0)
+
+GIT
   remote: https://github.com/hybridgroup/artoo-ardrone.git
   revision: dd40a080b64efd9834d26fdcbd5459f8c5c16e2f
   specs:
@@ -29,6 +35,7 @@ GEM
       nio4r (>= 0.4.5)
     certified (0.1.1)
     coderay (1.0.9)
+    ffi (1.9.0)
     ffi (1.9.0-java)
     http (0.4.0)
       certified
@@ -73,3 +80,4 @@ DEPENDENCIES
   artoo!
   artoo-ardrone!
   hybridgroup-argus
+  javahidapi!
