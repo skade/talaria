@@ -25,6 +25,14 @@ GIT
       reel (~> 0.4.0.pre)
       thor (~> 0.18.1)
 
+GIT
+  remote: https://github.com/skade/artoo-ps3.git
+  revision: f4d5d7c7b3ed5771f1da450d74b9d8529da62a08
+  specs:
+    artoo-ps3 (0.0.1)
+      artoo
+      javahidapi
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -35,6 +43,7 @@ GEM
       nio4r (>= 0.4.5)
     certified (0.1.1)
     coderay (1.0.9)
+    ffi (1.9.0)
     ffi (1.9.0-java)
     http (0.4.0)
       certified
@@ -78,5 +87,6 @@ PLATFORMS
 DEPENDENCIES
   artoo!
   artoo-ardrone!
+  artoo-ps3!
   hybridgroup-argus
   javahidapi!

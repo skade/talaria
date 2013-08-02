@@ -24,8 +24,8 @@ end
 
 Shoes.app :width => 1024, :height => 700 do
   start_drone!
-  start_video_stream!
+  #start_video_stream!
   setup_keyboard_control!
   setup_indoor_control!
-  start_game_controller!
+  #start_game_controller!
 end
