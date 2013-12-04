@@ -6,7 +6,7 @@ The flying shoes of Hermes. A shoes4 application to control AR.Drones.
 
 ## Usage
 
-* Acquire an AR.Drone
+* Acquire an [AR.Drone 2.0](http://ardrone2.parrot.com)
 * Make sure you have jruby-1.7.4 installed and activated in your shell
 * Clone the current shoes4 development branch and talaria:
 
@@ -25,7 +25,7 @@ cd talaria
 bundle install
 ```
 
-* Make sure `ffmpeg` is in your `$PATH`. Mac users can use the binary found [here](http://ffmpegmac.net/).
+* Make sure `ffmpeg` is in your `$PATH`. Mac users can use the binary found [here](http://ffmpegmac.net/) or install using [homebrew](http://brew.sh/).
 * Join your drones wifi network.
 * Run
 
@@ -62,24 +62,24 @@ The key configuration is built for indoor control and immediately stops the dron
 
 ## Controller Support
 
-Tialara has support for PS3 controllers through `javahidapi`. To connect a controller to OS X, see [this gist](https://gist.github.com/statico/3172711). Linux should behave similar. The controller will be automatically detected if present.
+Talaria has support for PS3 controllers through `javahidapi`. To connect a controller to OS X, see [this gist](https://gist.github.com/statico/3172711). Linux should behave similar. The controller will be automatically detected if present.
 
 Configuration:
 
-* L2: take off
-* R2: land
-* X: emergency togle
-* L1: front camera
-* R1: bottom camera
+* `L2`: take off
+* `R2`: land
+* `X`: emergency togle
+* `L1`: front camera
+* `R1`: bottom camera
 
-* left analog stick: forward/backward, bank left/right
-* right analog stick: up/down, turn left/right
+* `left analog stick`: forward/backward, bank left/right
+* `right analog stick`: up/down, turn left/right
 
-* d-pad: flips (not implemented)
+* `d-pad`: flips (not implemented)
 
 ## Warning
 
-When playing around, lower the speed settings. If your app crashes, the drone remembers the last settings and will be flying in the last direction without control.
+When playing around, lower the speed settings in `lib/indoor_control.rb`. If your app crashes, the drone remembers the last settings and will be flying in the last direction without control.
 
 Also, try the emergency toggle right after first take off to get a feel for it.
 
